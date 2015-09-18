@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 </head>
 <body>
-	<div id="map"></div>
+	<div id="map" style="height: 500px; width: 500px;"></div>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 
 	<script>
@@ -22,23 +22,19 @@
 		}).addTo(map);
 		L.marker([-34.573095, -58.477737]).addTo(map)
 			.bindPopup("<b>Starting point</b>").openPopup();
-		var popup = L.popup();
+		//var popup = L.popup();
     var polygon = L.polygon([
-    [-34.574915, -58.478714],
-    [-34.573510, -58.480709],
-    [-34.572238, -58.478531],
-    [-34.574023, -58.476976]
+    [-34.571747, -58.477562],
+    [-34.573473, -58.476031],
+    [-34.574542, -58.477884],
+    [-34.573025, -58.479858]
     ], {
       color: 'red',
       fillColor: '#f03',
-      fillOpacity: 0.5
+      fillOpacity: 0.2
     }).addTo(map);
 	</script>
 <style>
-#map {
-  width: 400px;
-  height: 400px;
-}
 </style>
 </body>
 </html>
