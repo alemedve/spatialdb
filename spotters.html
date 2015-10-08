@@ -25,16 +25,46 @@
       iconSize: [10, 10]
     })
 
+    function get_json(url, location, callback) {
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          var myArr = JSON.parse(xmlhttp.responseText);
+          callback(myArr, location);
+        }
+      }
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+    }
+    var popup = L.popup();
+
+    function onPointClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("Photos: " + this.photos.total)
+        .openOn(map);
+      }
+
     var results = Papa.parse("https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat", {
       download: true,
       complete: function(results) {
         console.log(results);
         //i < results.data.length
-        for (i=0; i<400; i++) {
-          L.marker([results.data[i][6], results.data[i][7]], {icon: pointIcon}).addTo(map);
+        for (i=0; i<100; i++) {
+          get_json("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3b94e7fd1953d0ed26d74d56b1efd510&tags=plane&lat=" + results.data[i][6] + "&lon=" + results.data[i][7] + "&radius=5&format=json&nojsoncallback=1",
+          [results.data[i][6], results.data[i][7]],
+            function (resp, location) {
+              if(resp.photos.total != "0"){
+                  console.log(resp);
+                  L.marker([location[0], location[1]], {icon: pointIcon, title: resp.photos.total}).addTo(map).on('click', onPointClick, resp);;
+              }
+            });
         }
       }
     });
+
+
   </script>
 
 <style>
