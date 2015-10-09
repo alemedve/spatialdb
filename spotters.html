@@ -4,9 +4,25 @@
   <title>Spatialdb - Spotters Map</title>
 	<meta charset="utf-8" />
 
+  <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 </head>
 <body>
+  <div class="navbar-spacer"></div>
+  <nav class="navbar">
+    <div class="container">
+      <ul class="navbar-list">
+        <li class="navbar-item"><a class="navbar-link" href="index.html">Inicio</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="spotters.html">Spotters Map</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="myneighborhood.html">Mapeando mi barrio</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="#">Location history</a></li>
+      </ul>
+    </div>
+  </nav>
 	<div id="map" style="height:600px"></div>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
   <script src="papaparse.js"></script>
@@ -52,7 +68,7 @@
         console.log(results);
         //i < results.data.length
         for (i=0; i<100; i++) {
-          get_json("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3b94e7fd1953d0ed26d74d56b1efd510&tags=plane&lat=" + results.data[i][6] + "&lon=" + results.data[i][7] + "&radius=5&format=json&nojsoncallback=1",
+          get_json("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8755d103368823ee3ca52487500e945&tags=plane&lat=" + results.data[i][6] + "&lon=" + results.data[i][7] + "&radius=5&format=json&nojsoncallback=1",
           [results.data[i][6], results.data[i][7]],
             function (resp, location) {
               if(resp.photos.total != "0"){
