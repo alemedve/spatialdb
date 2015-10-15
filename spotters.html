@@ -27,6 +27,7 @@
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
   <script src="papaparse.js"></script>
   <script type="text/javascript">
+    /* Define the map from mapbox */
 		var map = L.map('map').setView([0, -28], 3);
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWxlbWVkdmUiLCJhIjoiY2llcHNoeHByMDAxbndqa21zdjdwYmJkciJ9.Ch1gM-PFeR7YhhKpqV4I7Q', {
 			maxZoom: 18,
@@ -41,6 +42,7 @@
       iconSize: [10, 10]
     })
 
+    /* Get json from Flickr */
     function get_json(url, location, callback) {
       var xmlhttp = new XMLHttpRequest();
 
@@ -53,8 +55,9 @@
       xmlhttp.open("GET", url, true);
       xmlhttp.send();
     }
-    var popup = L.popup();
 
+    /* Define popup on icon click */
+    var popup = L.popup();
     function onPointClick(e) {
       popup
         .setLatLng(e.latlng)
@@ -62,11 +65,13 @@
         .openOn(map);
       }
 
+    /* Retrieve airport data and parse */
     var results = Papa.parse("https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat", {
       download: true,
       complete: function(results) {
         console.log(results);
-        //i < results.data.length
+        // Limited to 100 results for testing purposes
+        // i < results.data.length
         for (i=0; i<100; i++) {
           get_json("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8755d103368823ee3ca52487500e945&tags=plane&lat=" + results.data[i][6] + "&lon=" + results.data[i][7] + "&radius=5&format=json&nojsoncallback=1",
           [results.data[i][6], results.data[i][7]],
