@@ -41,12 +41,27 @@ function onPointClick(e) {
 var photos = [];
 function onViewClick(e) {
   document.getElementById("photofeed").style.display = 'block';
+  document.getElementById("photos").innerHTML = '';
   var position = location.hash;
   var separator = position.indexOf(";");
   var lat = position.substring(1,separator);
   var lon = position.substring(separator+1, position.length);
   console.log(photos[1]);
 
+  /* Not very efficent... Should find the way to avoid this call, using the previous answer */
+  get_json("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8755d103368823ee3ca52487500e945&tags=plane&lat=" + lat + "&lon=" + lon + "&radius=5&format=json&nojsoncallback=1",
+  [lat, lon],
+    function (resp, location) {
+      if(resp.photos.photo.length != "0"){
+          for(i = 0; i < resp.photos.photo.length; i++) {
+            var im = document.createElement("img");
+            var photo = resp.photos.photo[i];
+            im.src = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg";
+            document.getElementById("photos").appendChild(im);
+          }
+
+      }
+    });
 }
 
 function onXClick(e) {
