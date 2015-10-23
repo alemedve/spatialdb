@@ -10,6 +10,19 @@
   <link rel="stylesheet" href="css/custom.css">
 
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+  <script>
+  $(document).ready(function() {
+    $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+  });
+  </script>
 </head>
 <body>
   <div class="navbar-spacer"></div>
@@ -22,8 +35,21 @@
         <li class="navbar-item"><a class="navbar-link navbar-chosen" href="location.html">Location history</a></li>
       </ul>
     </div>
-    <iframe width="100%" height="600" frameborder="0" src="https://alemedve.cartodb.com/viz/efe2bdd8-735f-11e5-a224-0e3a376473ab/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
   </nav>
+  <div id="tabs-container">
+    <ul class="tabs-menu">
+      <li class="current"><a href="#tab-1">Animated</a></li>
+      <li><a href="#tab-2">QGis</a></li>
+    </ul>
+  <div>
+  <div class="tab">
+    <div id="tab-1" class="tab-content">
+      <iframe width="100%" height="600" frameborder="0" src="https://alemedve.cartodb.com/viz/efe2bdd8-735f-11e5-a224-0e3a376473ab/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    </div>
+    <div id="tab-2" class="tab-content">
+      <img src="img/Heatmap1.png"/>
+    </div>
+  </div>
 
 
 </body>
