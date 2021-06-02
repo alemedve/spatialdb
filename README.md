@@ -12,3 +12,4 @@ This is a map of airplane pictures around airports from Flickr. Done in collabor
 Airport locations are retrieved from [OpenFlights](http://openflights.org/data.html).
 This data is parsed with [Papaparse](http://papaparse.com/).
 Map is done with [Leaflet JS](http://leafletjs.com/) and [Mapbox](https://www.mapbox.com/).
+
